@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora de paro 2026: cuánto cobrarás y durante cuánto tiempo</title>
+<meta name="description" content="Calcula gratis tu prestación por desempleo: duración, cuantía mensual, total y fecha límite para solicitarla. Datos de 2026.">
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--text:#1b1f2a;--muted:#5d6678;--accent:#4a5df0;--border:#dfe3ee;--ok:#0b8a55;--g1:#0e8f8a;--g2:#4a5df0;--warn-bg:#fff6e0;--warn:#6b4700;--sh:0 8px 28px rgba(40,50,110,.12);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1118;--card:#171b26;--text:#eaedf4;--muted:#a1aabb;--accent:#7b8bff;--border:#2a3040;--ok:#4cd694;--g1:#0b6663;--g2:#3a43a8;--warn-bg:#2b2410;--warn:#f0c96a;--sh:0 8px 28px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1118;--card:#171b26;--text:#eaedf4;--muted:#a1aabb;--accent:#7b8bff;--border:#2a3040;--ok:#4cd694;--g1:#0b6663;--g2:#3a43a8;--warn-bg:#2b2410;--warn:#f0c96a;--sh:0 8px 28px rgba(0,0,0,.4);color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--g1);z-index:10}
+.hero{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;padding:28px 16px 64px;border-radius:0 0 32px 32px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.1)}
+.hero-in{max-width:680px;margin:0 auto;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;opacity:.9}
+.tg{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:99px;padding:6px 12px;font:inherit;cursor:pointer}
+h1{font-size:1.75rem;line-height:1.15;margin:18px 0 8px;letter-spacing:-.02em}
+.sub{margin:0;opacity:.92}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips span{background:rgba(255,255,255,.16);border-radius:99px;padding:4px 12px;font-size:.82rem}
+main{max-width:680px;margin:-44px auto 0;padding:0 16px 40px;position:relative}
+h2{font-size:1.2rem;margin:30px 0 10px}
+.panel,.box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--sh)}
+label{display:block;font-weight:600;font-size:.92rem;margin:14px 0 6px}
+.panel>label:first-child{margin-top:0}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:440px){.row,.cards{grid-template-columns:1fr!important}}
+.hint{font-size:.82rem;color:var(--muted);margin:4px 0 0}
+.btns{display:flex;gap:10px;margin-top:18px}
+.go{flex:1;font:inherit;font-weight:700;font-size:1.05rem;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:0;border-radius:14px;padding:15px;cursor:pointer}
+.ex{font:inherit;background:transparent;color:var(--accent);border:1.5px solid var(--border);border-radius:14px;padding:0 16px;cursor:pointer;font-weight:600}
+.err{color:#e04a4a;margin:10px 0 0;min-height:1.2em;font-weight:600}
+#res{margin-top:22px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 16px;box-shadow:var(--sh)}
+.card.total{grid-column:1/-1;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:0}
+.card small{display:block;opacity:.75;font-size:.82rem}
+.card b{font-size:1.45rem;display:block;font-variant-numeric:tabular-nums}
+.card.total b{font-size:2.2rem}
+.chart{display:flex;align-items:flex-end;gap:3px;height:130px;margin-top:6px}
+.chart div{flex:1;display:flex;align-items:flex-end;height:100%}
+.chart i{display:block;width:100%;border-radius:5px 5px 0 0;background:var(--g1)}
+.chart .b2 i{background:var(--g2)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--muted);margin-top:8px}
+.leg em{font-style:normal}.leg em::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--c)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+td{padding:10px 4px;border-bottom:1px solid var(--border);vertical-align:top}
+td:last-child{text-align:right;white-space:nowrap;font-weight:600}
+tr:last-child td{border-bottom:0}
+.tip{display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid var(--border)}
+.tip .ic{font-size:1.4rem;line-height:1}.tip p{margin:0;font-size:.92rem}.tip b{color:var(--ok)}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:14px;padding:12px 14px;margin-top:12px;font-size:.88rem}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.acts a,.acts button{font:inherit;text-align:center;text-decoration:none;padding:12px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);color:var(--accent);font-weight:700;cursor:pointer}
+details{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin-bottom:8px}
+summary{font-weight:600;cursor:pointer}summary::marker{color:var(--accent)}
+details p{margin:8px 0 0;color:var(--muted)}
+tr.sel td{color:var(--accent);font-weight:700}
+footer{margin-top:28px;font-size:.8rem;color:var(--muted)}
+</style>
+<style>a{color:var(--accent)}</style>
+</head>
+<body>
+<header class="hero"><div class="hero-in">
+  <div class="top"><span>💼 Herramientas laborales</span><button class="tg" id="tg" type="button">Modo oscuro</button></div>
+  <h1>Calculadora de paro: cuánto cobrarás y cuánto tiempo</h1>
+  <p class="sub">Prestación contributiva por desempleo con los importes de 2026.</p>
+  <div class="chips"><span>✓ Gratis</span><span>✓ Sin registro</span><span>✓ Datos 2026</span></div>
+</div></header>
+
+<main>
+<div class="panel">
+  <label>Tiempo cotizado en los últimos 6 años</label>
+  <div class="row">
+    <div><input type="text" id="an" inputmode="numeric" placeholder="Años (ej. 3)"></div>
+    <div><input type="text" id="me" inputmode="numeric" placeholder="Meses (ej. 6)"></div>
+  </div>
+  <p class="hint">Mira tu informe de vida laboral en la Seguridad Social. Cuentan solo los periodos que no hayas usado ya para cobrar paro.</p>
+  <label for="sal">Salario bruto anual medio de los últimos 180 días (€)</label>
+  <input type="text" id="sal" inputmode="decimal" placeholder="Ej. 24000">
+  <p class="hint">Con pagas extra incluidas, tal como cotizas.</p>
+  <label for="hij">Hijos a tu cargo</label>
+  <select id="hij"><option value="0">Ninguno</option><option value="1">1 hijo</option><option value="2">2 o más hijos</option></select>
+  <div class="row"><div><label for="ed">Tu edad</label><select id="ed"><option value="0">Menos de 45 años</option><option value="1">45 o más</option></select></div><div><label for="jp">Jornada (%)</label><input type="text" id="jp" inputmode="numeric" placeholder="100"></div></div>
+  <label for="ce">Fecha de cese en la empresa (opcional)</label>
+  <input type="date" id="ce">
+  <div class="btns"><button class="go" id="go" type="button">Calcular mi paro</button><button class="ex" id="ex" type="button">Ejemplo</button></div>
+  <p class="err" id="err" role="alert"></p>
+</div>
+
+<section id="res" hidden></section>
+
+<h2>Cuánto dura el paro según lo que cotizas</h2>
+<div class="box tw"><table id="dt">
+<tr data-d="360"><td>360 a 539 días</td><td>120 días</td></tr><tr data-d="540"><td>540 a 719 días</td><td>180 días</td></tr><tr data-d="720"><td>720 a 899 días</td><td>240 días</td></tr><tr data-d="900"><td>900 a 1.079 días</td><td>300 días</td></tr><tr data-d="1080"><td>1.080 a 1.259 días</td><td>360 días</td></tr><tr data-d="1260"><td>1.260 a 1.439 días</td><td>420 días</td></tr><tr data-d="1440"><td>1.440 a 1.619 días</td><td>480 días</td></tr><tr data-d="1620"><td>1.620 a 1.799 días</td><td>540 días</td></tr><tr data-d="1800"><td>1.800 a 1.979 días</td><td>600 días</td></tr><tr data-d="1980"><td>1.980 a 2.159 días</td><td>660 días</td></tr><tr data-d="2160"><td>2.160 o más</td><td>720 días</td></tr>
+</table></div>
+
+<h2>Casos especiales</h2>
+<details><summary>Trabajé a jornada parcial</summary><p>El importe máximo y mínimo de la prestación se reduce en proporción a tu jornada. La calculadora ya lo aplica si indicas el porcentaje.</p></details>
+<details><summary>No llego a 360 días cotizados</summary><p>No hay prestación contributiva, pero con al menos 90 días cotizados puede corresponderte el subsidio por cotización insuficiente: de 3 a 6 meses según lo cotizado, y hasta 21 meses con 180 días cotizados y responsabilidades familiares.</p></details>
+<details><summary>Estoy o he estado en un ERTE</summary><p>Las reglas son específicas: no se exige periodo mínimo de cotización y, en determinados casos, el tiempo en ERTE no consume tu paro. Confirma tu situación con la empresa o con el SEPE.</p></details>
+<details><summary>Soy fijo discontinuo</summary><p>Entre campañas puedes cobrar prestación o subsidio, y las cotizaciones de las campañas cuentan para calcularla.</p></details>
+<details><summary>Quiero montar un negocio con el paro</summary><p>Puedes pedir cobrar la prestación de una sola vez (pago único) para iniciar una actividad como autónomo o en una sociedad. Tiene requisitos y se solicita antes de empezar la actividad.</p></details>
+<details><summary>Quiero trabajar mientras cobro el paro</summary><p>Un trabajo a tiempo completo suspende o extingue la prestación, y uno a tiempo parcial puede ser compatible con descuentos. Comunícalo siempre al SEPE antes de empezar.</p></details>
+<details><summary>Me dan la baja médica durante el paro</summary><p>Normalmente sigues cobrando una cantidad igual a la de tu prestación mientras dure la baja. Avisa al SEPE y presenta los partes.</p></details>
+<details><summary>Tengo 52 años o más</summary><p>Existe un subsidio específico hasta la jubilación para quien ha cotizado al menos 6 años por desempleo y cumple todos los requisitos de jubilación salvo la edad.</p></details>
+<details><summary>Volví de trabajar fuera de la Unión Europea</summary><p>Si trabajaste al menos 12 meses fuera del Espacio Económico Europeo en los últimos 6 años y no cobraste paro allí, puede corresponderte un subsidio de hasta 18 meses.</p></details>
+
+<h2>Preguntas frecuentes</h2>
+<details><summary>¿Cuánto hay que cotizar para cobrar el paro?</summary><p>Un mínimo de 360 días cotizados en los 6 años anteriores al cese. Cuantos más días cotizados, más dura la prestación, hasta un máximo de 720 días con 2.160 días cotizados o más.</p></details>
+<details><summary>¿Cuánto se cobra de paro?</summary><p>El 70 % de la base reguladora durante los primeros 180 días y el 50 % a partir del día 181. El importe nunca baja de un mínimo ni supera un máximo, que dependen del IPREM y de si tienes hijos a cargo.</p></details>
+<details><summary>¿Qué pasa cuando se acaba el paro?</summary><p>Puede que te corresponda un subsidio por desempleo, que en 2026 es de unos 570 € al mes los 6 primeros meses, 540 € los 6 siguientes y 480 € el resto, siempre que cumplas los requisitos de renta y situación familiar.</p></details>
+<details><summary>¿Cobro paro si me voy yo de la empresa?</summary><p>Con una baja voluntaria, normalmente no. El paro exige que el cese sea involuntario, como un despido o el fin de un contrato temporal. Hay excepciones por causas justificadas.</p></details>
+<details><summary>¿Cuánto tiempo tengo para pedir el paro?</summary><p>Tienes 15 días hábiles desde el cese. Si te pasas, pierdes los días de prestación que correspondan a ese retraso.</p></details>
+
+<h2>Otras calculadoras</h2><div class="box"><p style="margin:0;line-height:2"><a href="index.html">🏠 Inicio</a> · <a href="finiquito.html">Finiquito e indemnización</a> · <a href="paro.html">Paro</a> · <a href="vacaciones.html">Vacaciones y horas extra</a></p></div>
+
+<footer>Estimación basada en los artículos 266 a 270 de la Ley General de la Seguridad Social, con IPREM de 600 € mensuales. Las cuantías máxima y mínima se calculan para jornada completa. El importe real lo fija el SEPE y se le restan la cotización a la Seguridad Social y, si procede, la retención de IRPF. No sustituye una consulta con el SEPE o un profesional.</footer>
+</main>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},D=864e5,IP=600*7/6;
+  var fmt=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'});
+  var df=new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+  var T=[[2160,720],[1980,660],[1800,600],[1620,540],[1440,480],[1260,420],[1080,360],[900,300],[720,240],[540,180],[360,120]],last='';
+  function pn(v){v=String(v||'').replace(/[€\s]/g,'');if(!v)return NaN;
+    if(v.indexOf('.')>-1&&v.indexOf(',')>-1)v=v.replace(/\./g,'').replace(',','.');
+    else if(/^\d{1,3}(\.\d{3})+$/.test(v))v=v.replace(/\./g,'');else v=v.replace(',','.');return parseFloat(v)}
+  function dur(d){for(var i=0;i<T.length;i++)if(d>=T[i][0])return T[i][1];return 0}
+  function plazo(e,n){var d=e,c=0;while(c<n){d+=D;var w=new Date(d).getUTCDay();if(w!==0&&w!==6)c++}return d}
+  function anim(el,to){var t0=null;if(matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=fmt.format(to);return}
+    (function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/700,1);el.textContent=fmt.format(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(performance.now())}
+  function tr(a,b){return'<tr><td>'+a+'</td><td>'+b+'</td></tr>'}
+  function subs(m){var t=0;for(var i=1;i<=m;i++)t+=i<=6?570:(i<=12?540:480);return t}
+
+  function calc(){
+    var err=$('err'),res=$('res');err.textContent='';
+    var an=pn($('an').value)||0,me=pn($('me').value)||0,anual=pn($('sal').value),h=+$('hij').value,ce=$('ce').value,ed=+$('ed').value,jp=Math.min(100,Math.max(1,pn($('jp').value)||100))/100;
+    var dias=Math.round(an*365+me*30.4);
+    if(!(anual>0)||dias<=0){err.textContent='Indica el tiempo cotizado y tu salario bruto anual.';res.hidden=true;return}
+    var du=dur(dias);
+    if(!du){var sm=0;if(dias>=90)sm=dias>=180?(h?21:6):Math.floor(dias/30);
+      res.innerHTML=sm?'<div class="cards"><div class="card"><small>Prestación contributiva</small><b>No alcanzas</b></div><div class="card"><small>Subsidio por cotización insuficiente</small><b>'+sm+' meses</b></div><div class="card total"><small>Total bruto estimado del subsidio</small><b id="n3">0</b></div></div><div class="tip"><span class="ic">💡</span><p>Cobrarías <b>570 € al mes</b> los 6 primeros meses, 540 € del 7 al 12 y 480 € después. Exige que tus rentas no superen <b>915,75 € al mes</b> y pedirlo en 15 días hábiles. He supuesto responsabilidades familiares si indicas hijos a cargo.</p></div>':'<div class="note">Con menos de 90 días cotizados no alcanzas ni la prestación contributiva ni el subsidio por cotización insuficiente. Revisa los casos especiales de más abajo.</div>';
+      res.hidden=false;if($('n3'))anim($('n3'),subs(sm));return}
+    var mx=[1.75,2,2.25][h]*IP*jp,mn=(h?1.07:0.8)*IP*jp,base=anual/360;
+    function cl(v){return Math.min(Math.max(v,mn/30),mx/30)}
+    var d1=cl(base*.7),d2=cl(base*.5),n1=Math.min(180,du),n2=Math.max(0,du-180),total=d1*n1+d2*n2;
+    var topeTxt=base*.7>mx/30?'Tope máximo aplicado':(base*.7<mn/30?'Mínimo legal aplicado':'Sin topes aplicados');
+    var nm=du/30,bars='',hmax=d1*30;
+    for(var m=1;m<=nm;m++)bars+='<div'+(m>6?' class="b2"':'')+'><i style="height:'+Math.max(4,Math.round((m>6?d2:d1)/(d1)*100))+'%"></i></div>';
+    var tips='';
+    if(ce){var c=new Date(ce+'T00:00:00Z').getTime();
+      tips+='<div class="tip"><span class="ic">⏰</span><p>Fecha límite aproximada para solicitar el paro: <b>'+df.format(plazo(c,15))+'</b> (15 días hábiles, sin contar festivos).</p></div>';
+      tips+='<div class="tip"><span class="ic">📅</span><p>Si lo pides a tiempo, lo agotarías sobre el <b>'+df.format(c+D*(du+1))+'</b>, salvo que encuentres trabajo antes.</p></div>'}
+    var sm=h?(du>=180?30:24):((ed===0&&du<360)?0:6);
+    tips+=sm?'<div class="tip"><span class="ic">💡</span><p>Al agotar el paro podrías pedir el <b>subsidio por desempleo</b>: unos <b>'+sm+' meses</b> (570 € los 6 primeros, 540 € del 7 al 12 y 480 € después), en total unos <b>'+fmt.format(subs(sm))+'</b>. Exige rentas por debajo de 915,75 € al mes y pedirlo en 15 días hábiles. He supuesto responsabilidades familiares si indicas hijos a cargo.</p></div>':'<div class="tip"><span class="ic">💡</span><p>Con menos de 45 años, sin responsabilidades familiares y un paro de menos de 360 días, no tendrías subsidio por agotamiento.</p></div>';
+    last='Mi paro estimado: '+(du/30)+' meses, '+fmt.format(d1*30)+'/mes los 6 primeros y '+fmt.format(d2*30)+'/mes después, total bruto '+fmt.format(total)+'. Calcula el tuyo: '+location.href;
+    res.innerHTML='<div class="cards"><div class="card"><small>Duración</small><b>'+du+' días</b></div><div class="card"><small>Meses de prestación</small><b>'+(du/30)+'</b></div>'+
+      '<div class="card"><small>Meses 1 a 6 (70 %)</small><b id="n1">0</b></div><div class="card"><small>Resto de meses (50 %)</small><b id="n2">0</b></div>'+
+      '<div class="card total"><small>Total bruto estimado</small><b id="n3">0</b></div></div>'+
+      '<h2>Mes a mes</h2><div class="box"><div class="chart">'+bars+'</div><div class="leg"><em style="--c:var(--g1)">Primeros 6 meses</em><em style="--c:var(--g2)">Después</em></div></div>'+
+      '<h2>Desglose</h2><div class="box tw"><table>'+tr('Días cotizados',dias)+tr('Base reguladora diaria',fmt.format(base))+
+      tr('Importe diario, días 1 a 180',fmt.format(d1))+tr('Importe diario, desde el día 181',fmt.format(d2))+
+      tr('Límites mensuales de tu caso',fmt.format(mn)+' a '+fmt.format(mx))+tr('Resultado',topeTxt)+'</table></div>'+tips+
+      '<div class="note">Importes brutos. Al abonarte la prestación se descuenta la cotización a la Seguridad Social y, según tu caso, la retención de IRPF, así que cobrarás algo menos. Los límites mostrados ya tienen en cuenta tu porcentaje de jornada.</div>'+
+      '<div class="acts"><a id="wa" target="_blank" rel="noopener" href="#">Enviar por WhatsApp</a><button id="cp" type="button">Copiar resumen</button></div>';
+    res.hidden=false;anim($('n1'),d1*30);anim($('n2'),d2*30);anim($('n3'),total);
+    var sel=null;[].forEach.call(document.querySelectorAll('#dt tr'),function(r){r.className='';if(dias>=+r.getAttribute('data-d'))sel=r});if(sel)sel.className='sel';
+    $('wa').href='https://wa.me/?text='+encodeURIComponent(last);
+    $('cp').onclick=function(){var b=this;try{navigator.clipboard.writeText(last).then(function(){b.textContent='¡Copiado!'})}catch(_){b.textContent='No se pudo copiar'}};
+    res.scrollIntoView({behavior:'smooth',block:'start'})}
+
+  try{var qs=[].map.call(document.querySelectorAll('details'),function(d){return{'@type':'Question',name:d.querySelector('summary').textContent,acceptedAnswer:{'@type':'Answer',text:d.querySelector('p').textContent}}});var sc=document.createElement('script');sc.type='application/ld+json';sc.textContent=JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:qs});document.head.appendChild(sc)}catch(_){}
+  $('go').onclick=calc;
+  $('ex').onclick=function(){$('an').value='3';$('me').value='6';$('sal').value='24000';$('hij').value='0';$('ce').value='2026-10-30';calc()};
+  $('tg').onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);
+    r.setAttribute('data-theme',d?'light':'dark');this.textContent=d?'Modo oscuro':'Modo claro'};
+})();
+</script>
+</body>
+</html>

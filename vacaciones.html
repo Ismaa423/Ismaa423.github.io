@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora de vacaciones, horas extra y salario por hora (España)</title>
+<meta name="description" content="Calcula gratis tus vacaciones pendientes, el valor de tus horas extra y tu salario por hora, día y mes. Resultado inmediato.">
+<style>
+:root{--bg:#f7f4f2;--card:#fff;--text:#1f1b1a;--muted:#6a605c;--accent:#d9480f;--border:#e8dfda;--ok:#0b8a55;--g1:#e0561f;--g2:#c026d3;--warn-bg:#fff6e0;--warn:#6b4700;--sh:0 8px 28px rgba(110,50,30,.13);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15110f;--card:#1f1a18;--text:#f2ecea;--muted:#b3a8a3;--accent:#ff8a5c;--border:#342c29;--ok:#4cd694;--g1:#a8380f;--g2:#8a1b9a;--warn-bg:#2b2410;--warn:#f0c96a;--sh:0 8px 28px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15110f;--card:#1f1a18;--text:#f2ecea;--muted:#b3a8a3;--accent:#ff8a5c;--border:#342c29;--ok:#4cd694;--g1:#a8380f;--g2:#8a1b9a;--warn-bg:#2b2410;--warn:#f0c96a;--sh:0 8px 28px rgba(0,0,0,.4);color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--g1);z-index:10}
+.hero{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;padding:28px 16px 64px;border-radius:0 0 32px 32px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.1)}
+.hero-in{max-width:680px;margin:0 auto;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;opacity:.92}
+.tg{background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:99px;padding:6px 12px;font:inherit;cursor:pointer}
+h1{font-size:1.75rem;line-height:1.15;margin:18px 0 8px;letter-spacing:-.02em}
+.sub{margin:0;opacity:.95}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips span{background:rgba(255,255,255,.18);border-radius:99px;padding:4px 12px;font-size:.82rem}
+main{max-width:680px;margin:-44px auto 0;padding:0 16px 40px;position:relative}
+h2{font-size:1.2rem;margin:30px 0 10px}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:5px;box-shadow:var(--sh)}
+.tab{flex:1;font:inherit;font-weight:700;font-size:.92rem;border:0;background:transparent;color:var(--muted);padding:11px 4px;border-radius:12px;cursor:pointer}
+.tab[aria-selected="true"]{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff}
+.panel,.box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--sh)}
+.panel{margin-top:14px}
+label{display:block;font-weight:600;font-size:.92rem;margin:14px 0 6px}
+.panel>label:first-child{margin-top:0}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:440px){.row,.cards{grid-template-columns:1fr!important}}
+.hint{font-size:.82rem;color:var(--muted);margin:4px 0 0}
+.btns{display:flex;gap:10px;margin-top:18px}
+.go{flex:1;font:inherit;font-weight:700;font-size:1.05rem;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:0;border-radius:14px;padding:15px;cursor:pointer}
+.ex{font:inherit;background:transparent;color:var(--accent);border:1.5px solid var(--border);border-radius:14px;padding:0 16px;cursor:pointer;font-weight:600}
+.err{color:#e04a4a;margin:10px 0 0;min-height:1.2em;font-weight:600}
+.res{margin-top:18px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:12px 14px}
+.card.total{grid-column:1/-1;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:0}
+.card small{display:block;opacity:.75;font-size:.8rem}
+.card b{font-size:1.4rem;display:block;font-variant-numeric:tabular-nums}
+.card.total b{font-size:2rem}
+.bar{height:14px;border-radius:99px;background:var(--border);overflow:hidden;margin:14px 0 6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .7s}
+.bar.over i{background:#e04a4a}
+.hint2{font-size:.82rem;color:var(--muted)}
+.tw{overflow-x:auto;margin-top:12px}
+table{width:100%;border-collapse:collapse}
+td{padding:10px 4px;border-bottom:1px solid var(--border);vertical-align:top}
+td:last-child{text-align:right;white-space:nowrap;font-weight:600}
+tr:last-child td{border-bottom:0}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:14px;padding:12px 14px;margin-top:12px;font-size:.88rem}
+details{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin-bottom:8px}
+summary{font-weight:600;cursor:pointer}summary::marker{color:var(--accent)}
+details p{margin:8px 0 0;color:var(--muted)}
+footer{margin-top:28px;font-size:.8rem;color:var(--muted)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+<style>a{color:var(--accent)}</style>
+</head>
+<body>
+<header class="hero"><div class="hero-in">
+  <div class="top"><span>🧮 Herramientas laborales</span><button class="tg" id="tg" type="button">Modo oscuro</button></div>
+  <h1>Vacaciones, horas extra y salario por hora</h1>
+  <p class="sub">Tres calculadoras en una para saber lo que te deben y lo que vale tu tiempo.</p>
+  <div class="chips"><span>✓ Gratis</span><span>✓ Sin registro</span><span>✓ Normativa 2026</span></div>
+</div></header>
+
+<main>
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-t="p1">Vacaciones</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="p2">Horas extra</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="p3">Salario por hora</button>
+</div>
+
+<section class="panel" id="p1">
+  <div class="row"><div><label for="v_ini">Inicio del contrato</label><input type="date" id="v_ini"></div><div><label for="v_fin">Fecha de cálculo o de fin</label><input type="date" id="v_fin"></div></div>
+  <div class="row"><div><label for="v_dias">Vacaciones al año (días naturales)</label><input type="text" id="v_dias" inputmode="numeric" placeholder="30"></div><div><label for="v_dis">Días ya disfrutados este año</label><input type="text" id="v_dis" inputmode="decimal" placeholder="0"></div></div>
+  <label for="v_sal">Salario bruto anual (€, opcional)</label>
+  <input type="text" id="v_sal" inputmode="decimal" placeholder="Ej. 24000">
+  <p class="hint">La ley fija un mínimo de 30 días naturales al año. Tu convenio puede darte más.</p>
+  <div class="btns"><button class="go" data-go="1" type="button">Calcular vacaciones</button><button class="ex" data-ex="1" type="button">Ejemplo</button></div>
+  <p class="err" id="e1" role="alert"></p><div class="res" id="r1" hidden></div>
+</section>
+
+<section class="panel" id="p2" hidden>
+  <label for="h_sal">Salario bruto anual (€)</label>
+  <input type="text" id="h_sal" inputmode="decimal" placeholder="Ej. 24000">
+  <label for="h_hor">Horas de jornada al año según tu convenio</label>
+  <input type="text" id="h_hor" inputmode="numeric" placeholder="1826">
+  <p class="hint">Con 40 horas semanales son unas 1.826 horas al año. Mira tu convenio o tu contrato.</p>
+  <div class="row"><div><label for="h_n">Horas extra realizadas</label><input type="text" id="h_n" inputmode="decimal" placeholder="Ej. 10"></div><div><label for="h_per">Corresponden a</label><select id="h_per"><option value="m">Un mes</option><option value="a">Todo el año</option></select></div></div>
+  <label for="h_rec">Recargo de tu convenio sobre la hora normal (%)</label>
+  <input type="text" id="h_rec" inputmode="decimal" placeholder="Ej. 25 (0 si no hay)">
+  <div class="btns"><button class="go" data-go="2" type="button">Calcular horas extra</button><button class="ex" data-ex="2" type="button">Ejemplo</button></div>
+  <p class="err" id="e2" role="alert"></p><div class="res" id="r2" hidden></div>
+</section>
+
+<section class="panel" id="p3" hidden>
+  <label for="s_sal">Salario bruto anual (€)</label>
+  <input type="text" id="s_sal" inputmode="decimal" placeholder="Ej. 24000">
+  <div class="row"><div><label for="s_hor">Horas a la semana</label><input type="text" id="s_hor" inputmode="decimal" placeholder="40"></div><div><label for="s_pag">Pagas</label><select id="s_pag"><option value="14">14 pagas</option><option value="12">12 pagas</option></select></div></div>
+  <div class="btns"><button class="go" data-go="3" type="button">Calcular</button><button class="ex" data-ex="3" type="button">Ejemplo</button></div>
+  <p class="err" id="e3" role="alert"></p><div class="res" id="r3" hidden></div>
+</section>
+
+<h2>Preguntas frecuentes</h2>
+<details><summary>¿Cuántos días de vacaciones me corresponden?</summary><p>Como mínimo 30 días naturales al año, que equivalen a unos 22 días laborables. Se generan poco a poco, a razón de 2,5 días por mes trabajado, y tu convenio puede mejorarlos.</p></details>
+<details><summary>¿Me pagan las vacaciones que no he disfrutado?</summary><p>Si el contrato termina y te quedan vacaciones generadas sin disfrutar, la empresa debe pagarlas en el finiquito. Mientras el contrato sigue, las vacaciones no se pueden cambiar por dinero.</p></details>
+<details><summary>¿Cuánto tiene que pagarme la empresa por una hora extra?</summary><p>Nunca menos que el valor de una hora normal. Muchos convenios añaden un recargo, y la ley permite compensar las horas extra con descanso dentro de los cuatro meses siguientes.</p></details>
+<details><summary>¿Cuántas horas extra se pueden hacer al año?</summary><p>El máximo legal es de 80 horas extra al año. No cuentan las compensadas con descanso en los cuatro meses siguientes. Si las superas, la empresa puede ser sancionada.</p></details>
+<details><summary>¿Las horas extra son voluntarias?</summary><p>Por regla general sí, salvo que estén pactadas en el contrato o en el convenio, o que se trate de horas por fuerza mayor para evitar daños.</p></details>
+
+<h2>Otras calculadoras</h2><div class="box"><p style="margin:0;line-height:2"><a href="index.html">🏠 Inicio</a> · <a href="finiquito.html">Finiquito e indemnización</a> · <a href="paro.html">Paro</a> · <a href="vacaciones.html">Vacaciones y horas extra</a></p></div>
+
+<footer>Estimación orientativa basada en los artículos 35 y 38 del Estatuto de los Trabajadores. Tu convenio colectivo o tu contrato pueden mejorar estas cantidades. No sustituye el asesoramiento de un abogado o gestor.</footer>
+</main>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},D=864e5;
+  var fmt=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}),nf=new Intl.NumberFormat('es-ES',{maximumFractionDigits:2});
+  function pn(v){v=String(v||'').replace(/[€\s]/g,'');if(!v)return NaN;
+    if(v.indexOf('.')>-1&&v.indexOf(',')>-1)v=v.replace(/\./g,'').replace(',','.');
+    else if(/^\d{1,3}(\.\d{3})+$/.test(v))v=v.replace(/\./g,'');else v=v.replace(',','.');return parseFloat(v)}
+  function ts(v){var p=v.split('-').map(Number);return Date.UTC(p[0],p[1]-1,p[2])}
+  function cd(l,v,c){return'<div class="card'+(c?' '+c:'')+'"><small>'+l+'</small><b>'+v+'</b></div>'}
+  function tr(a,b){return'<tr><td>'+a+'</td><td>'+b+'</td></tr>'}
+  function out(n,err,html,pct,over){var r=$('r'+n);$('e'+n).textContent=err||'';if(err){r.hidden=true;return}
+    r.innerHTML=html;r.hidden=false;var b=r.querySelector('.bar');if(b){if(over)b.className='bar over';setTimeout(function(){b.firstChild.style.width=pct+'%'},50)}
+    r.scrollIntoView({behavior:'smooth',block:'start'})}
+
+  function vac(){
+    var si=$('v_ini').value,sf=$('v_fin').value,dd=pn($('v_dias').value)||30,dis=pn($('v_dis').value)||0,sal=pn($('v_sal').value);
+    if(!si||!sf)return out(1,'Indica la fecha de inicio y la de cálculo.');
+    var s=ts(si),e=ts(sf);if(e<s)return out(1,'La fecha final no puede ser anterior al inicio.');
+    var y=new Date(e).getUTCFullYear(),ys=Date.UTC(y,0,1),ye=Date.UTC(y+1,0,1),from=Math.max(s,ys);
+    var trab=(e+D-from)/D,dev=dd*trab/((ye-ys)/D),pend=dev-dis,pct=Math.min(100,dev>0?dis/dev*100:0);
+    var val=sal>0&&pend>0?pend*sal/365:0;
+    var h='<div class="cards">'+cd('Generadas este año',nf.format(dev)+' días')+cd('Ya disfrutadas',nf.format(dis)+' días')+
+      cd(pend>=0?'Pendientes':'Disfrutadas de más',nf.format(Math.abs(pend))+' días','total')+(val?cd('Valor aproximado en euros',fmt.format(val),'total'):'')+'</div>'+
+      '<div class="bar"><i></i></div><div class="hint2">Has usado el '+Math.round(pct)+' % de lo generado hasta ahora.</div>'+
+      '<div class="tw"><table>'+tr('Días trabajados en '+y,nf.format(trab))+tr('Ritmo de generación',nf.format(dd/12)+' días al mes')+tr('Pendientes en días laborables (aprox.)',nf.format(Math.max(0,pend)*22/30))+'</table></div>'+
+      '<div class="note">Si el contrato termina, las vacaciones pendientes se pagan en el finiquito. Si has disfrutado más de las generadas, la empresa puede compensarlo. El valor en euros usa tu salario diario (anual ÷ 365) y es orientativo.</div>';
+    out(1,'',h,pct)}
+
+  function ext(){
+    var sal=pn($('h_sal').value),hor=pn($('h_hor').value)||1826,n=pn($('h_n').value),rec=pn($('h_rec').value)||0,per=$('h_per').value;
+    if(!(sal>0)||!(n>0))return out(2,'Indica tu salario bruto anual y las horas extra realizadas.');
+    var ho=sal/hor,he=ho*(1+rec/100),tot=n*he,an=per==='m'?n*12:n,pct=Math.min(100,an/80*100),over=an>80;
+    var h='<div class="cards">'+cd('Hora normal',fmt.format(ho))+cd('Hora extra',fmt.format(he))+cd('Total por estas horas extra',fmt.format(tot),'total')+'</div>'+
+      '<div class="bar"><i></i></div><div class="hint2">'+(per==='m'?'A este ritmo harías '+nf.format(an)+' horas extra al año. ':'Llevas '+nf.format(an)+' horas extra al año. ')+'El máximo legal es de 80.</div>'+
+      (over?'<div class="note">Superas el límite legal de 80 horas extra al año. Revisa con tu convenio o un sindicato si esas horas son válidas.</div>':'')+
+      '<div class="tw"><table>'+tr('Jornada anual usada',nf.format(hor)+' h')+tr('Recargo aplicado',nf.format(rec)+' %')+tr('Horas extra proyectadas al año',nf.format(an)+' h')+'</table></div>'+
+      '<div class="note">Importes brutos. La hora extra nunca puede pagarse por debajo de la hora normal. Si tu convenio fija otro valor, escríbelo como recargo. También puede compensarse con descanso en los 4 meses siguientes.</div>';
+    out(2,'',h,pct,over)}
+
+  function sal(){
+    var s=pn($('s_sal').value),hs=pn($('s_hor').value)||40,pg=+$('s_pag').value;
+    if(!(s>0))return out(3,'Indica tu salario bruto anual.');
+    var ha=hs*45.66,h='<div class="cards">'+cd('Por hora',fmt.format(s/ha))+cd('Por día',fmt.format(s/365))+cd('Al mes (12 pagas)',fmt.format(s/12),'total')+'</div>'+
+      '<div class="tw"><table>'+tr('Al mes con '+pg+' pagas',fmt.format(s/pg)+(pg===14?' (más 2 extras)':''))+tr('A la semana',fmt.format(s/52.14))+tr('Horas de trabajo al año (estimadas)',nf.format(ha)+' h')+tr('Salario anual bruto',fmt.format(s))+'</table></div>'+
+      '<div class="note">Importes brutos, antes de retenciones. Las horas anuales se estiman restando vacaciones y festivos habituales.</div>';
+    out(3,'',h,0)}
+
+  [].forEach.call(document.querySelectorAll('.tab'),function(b){b.onclick=function(){
+    [].forEach.call(document.querySelectorAll('.tab'),function(x){x.setAttribute('aria-selected',x===b)});
+    ['p1','p2','p3'].forEach(function(p){$(p).hidden=p!==b.dataset.t})}});
+  var F={1:vac,2:ext,3:sal};
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.onclick=F[b.dataset.go]});
+  var X={1:function(){$('v_ini').value='2026-02-01';$('v_fin').value='2026-10-20';$('v_dias').value='30';$('v_dis').value='10';$('v_sal').value='24000'},
+    2:function(){$('h_sal').value='24000';$('h_hor').value='1826';$('h_n').value='10';$('h_per').value='m';$('h_rec').value='25'},
+    3:function(){$('s_sal').value='24000';$('s_hor').value='40';$('s_pag').value='14'}};
+  [].forEach.call(document.querySelectorAll('[data-ex]'),function(b){b.onclick=function(){X[b.dataset.ex]();F[b.dataset.ex]()}});
+
+  try{var qs=[].map.call(document.querySelectorAll('details'),function(d){return{'@type':'Question',name:d.querySelector('summary').textContent,acceptedAnswer:{'@type':'Answer',text:d.querySelector('p').textContent}}});var sc=document.createElement('script');sc.type='application/ld+json';sc.textContent=JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:qs});document.head.appendChild(sc)}catch(_){}
+  $('tg').onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);
+    r.setAttribute('data-theme',d?'light':'dark');this.textContent=d?'Modo oscuro':'Modo claro'};
+})();
+</script>
+</body>
+</html>
